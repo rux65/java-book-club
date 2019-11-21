@@ -8,7 +8,8 @@
 // in the past, telescopic constructors were used ( where one is set, and the next one is set based on the previous using super())
 // the number of constructors to provide all the possible variations of how a class can be constructed using these 9 parameters
 // 1!+2!+3!+4!+5!+6!+7!+8!+9! ... someone in the group is more qualified than me to do this
-//
+// 1+2+6+24+120+720+5040+40320+362880 ... if I got this right, the number is very large
+// with a builder, none of that is needed. 
 
 import lombok.Builder;
 import lombok.Getter;
