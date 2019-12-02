@@ -1,0 +1,83 @@
+import lombok.Getter;
+import lombok.Setter;
+
+import java.util.ArrayList;
+import java.util.List;
+
+// instead of a single access method we use a predicate - defined in java.util.function;
+
+// Predicate<T> is a generic functional interface representing a single argument
+// function that returns a boolean value. It is located in the java. util. function package.
+// It contains a test(T t) method that evaluates the predicate on the given argument.
+
+
+interface Predicate<T> {
+   public abstract boolean test(T t);
+}
+
+@Setter
+@Getter
+class Animal2{
+   private String species;
+   private boolean canHop;
+   private boolean canSwim;
+
+   public Animal2(String speciesName, boolean hopper, boolean swimmer){
+      species = speciesName;
+      canHop = hopper;
+      canSwim = swimmer;
+   } // constructor
+
+   public boolean canHop(){
+      return canHop;
+   } // getter
+
+   public boolean canSwim(){
+      return canSwim;
+   } // getter
+   public String toString(){
+      return species;
+   } //getter
+}
+
+public class Lambdas2 {
+   public static void main(String[] args) {
+      List<Animal2> animals = new ArrayList<Animal2>();
+      animals.add(new Animal2("fish", false, true));
+      animals.add(new Animal2("kangaroo", true, false));
+      animals.add(new Animal2("rabbit", true, false));
+      animals.add(new Animal2("turtle", false, true));
+
+      print(animals, a -> a.canSwim());
+      print(animals, a -> a.canHop());
+
+
+      // ==over simplified:
+      animals.forEach(animal -> { if(animal.canHop()) System.out.print(animal +" ");});
+
+   }
+
+   //== still have the method that iterated over the list ==
+   private static void print(List<Animal2> animals, Predicate<Animal2> checker) {
+      for (Animal2 animal : animals) {
+         if (checker.test(animal))
+            System.out.print(animal + " ");
+      }
+      System.out.println();
+   }
+}
+
+
+
+// Core group of functional interfaces:
+
+/**
+ * Interface name    |   Argument|  Returns  |  Example
+ * Predicate<T>      |     T     |  boolean  |  Has this album been released yet?
+ * Consumer<T>       |     T     |  void     |  Printing out a value
+ * Function<T, R>    |     T     |     R     |  Get the name from an Artist object
+ * Supplier<T>       |     None  |     T     |  A factory method
+ * UnaryOperator<T>  |     T     |     T     |  Logical not(!)
+ * BinaryOperator<T> |  (T,T)    |     T     |  Multiplying two numbers(*)
+ */
+
