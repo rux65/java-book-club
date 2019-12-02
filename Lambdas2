@@ -66,18 +66,3 @@ public class Lambdas2 {
       System.out.println();
    }
 }
-
-
-
-// Core group of functional interfaces:
-
-/**
- * Interface name    |   Argument|  Returns  |  Example
- * Predicate<T>      |     T     |  boolean  |  Has this album been released yet?
- * Consumer<T>       |     T     |  void     |  Printing out a value
- * Function<T, R>    |     T     |     R     |  Get the name from an Artist object
- * Supplier<T>       |     None  |     T     |  A factory method
- * UnaryOperator<T>  |     T     |     T     |  Logical not(!)
- * BinaryOperator<T> |  (T,T)    |     T     |  Multiplying two numbers(*)
- */
-
