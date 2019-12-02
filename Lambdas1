@@ -1,0 +1,106 @@
+//functional programming is thinking about your problem domain in terms of immutable
+// values and functions that translate between them.
+// (functions dont assign, they are self contained)
+
+//A functional interface is an interface with a single abstract method that is used
+// as the type of a lambda expression.
+
+/**
+ * In java, all method parameters have types. The same is true for lambda expressions.
+ * Lambdas use functional interfaces .
+ * Functional interface =  an interface with only one abstract method **/
+
+// A lambda = block of code that gets passed around
+// think if it as an anonymous method
+
+//for example:
+
+import lombok.Getter;
+import lombok.Setter;
+
+import java.util.ArrayList;
+import java.util.List;
+
+
+// single function interface
+interface CheckTrait{
+   public abstract boolean test(Animal a);//=== the function ===
+}
+
+// implement the interface
+class CheckIfHopper implements CheckTrait{
+   public boolean test(Animal a){
+      return a.canHop();
+   }
+}
+
+
+@Setter
+@Getter
+class Animal{
+   private String species;
+   private boolean canHop;
+   private boolean canSwim;
+
+   public Animal(String speciesName, boolean hopper, boolean swimmer){
+      species = speciesName;
+      canHop = hopper;
+      canSwim = swimmer;
+   } // constructor
+
+   public boolean canHop(){
+      return canHop;
+   } // getter
+
+   public boolean canSwim(){
+      return canSwim;
+   } // getter
+   public String toString(){
+      return species;
+   } //getter
+}
+
+
+public class Lambdas1 {
+   public static void main(String[] args){
+
+      //== this creates a list of animals with parameters :name, canHop, canSwim ==
+      List<Animal> animals = new ArrayList<Animal>();
+      animals.add(new Animal("fish", false, true));
+      animals.add(new Animal("kangaroo", true, false));
+      animals.add(new Animal("rabbit", true, false));
+      animals.add(new Animal("turtle", false, true));
+
+      //passing the class that implements the interface
+      print (animals, new CheckIfHopper());
+
+      //what if we wanted to CheckIfSwimmer?
+      // we could write another class CheckIs swimmer or
+      // we could pass a lambda to the function that iterated through the list
+      // and change what it returns
+      print(animals, animal -> animal.canSwim());
+
+      /**
+       * How can we pass a lambda as a replacement of an object?
+       *
+       * The object implements the interface.
+       * In those objects, the lambda implementation is considered the said method's
+       * implementation. If the lambda and the interface match, the lambda function
+       * can be assigned to a variable of that interface's type.
+       */
+
+      // the object implements an interface with a single abstract method
+      // if the arguments and return match then lambda can be passed instead of
+      // object implementing the interface
+   }
+
+   //== loop through the list ==
+   //==for each element in the list, if the element canHop = true, print it
+   private static void print(List<Animal> animals, CheckTrait checker){
+      for (Animal animal:animals){
+         if (checker.test(animal))
+            System.out.print(animal+" ");
+      }
+      System.out.println();
+   }
+}
